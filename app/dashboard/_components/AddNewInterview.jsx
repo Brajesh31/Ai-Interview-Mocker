@@ -25,7 +25,7 @@ export default function AddNewInterview() {
       setJobPosition("");
       setJobDescription("");
       setJobExperience("");
-      window.location.assign(`/interview/${encodeURIComponent(mockID)}`);
+      window.location.assign(`/dashboard/interview/${encodeURIComponent(mockID)}`);
     } catch {
       setError("Interview generation failed. Check your details and try again. If the issue continues, contact the maintainer.");
     } finally {
