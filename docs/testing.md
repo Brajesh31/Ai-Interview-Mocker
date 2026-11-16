@@ -1,43 +1,65 @@
-# Testing Guide
+# Testing strategy and verification
 
-## Current status
+## Automated test suite
 
-No automated test suite is currently configured. Lint and build commands do not replace unit or integration tests.
+The repository uses Node.js's built-in test runner. The current automated tests cover pure validation helpers in `lib/interview-validation.js`.
 
-## Required checks
+Run:
 
 ```bash
 npm ci
-npm run lint
+npm test
+```
+
+Current test cases cover:
+- Trimming and normalization of valid role details.
+- Empty and overlong role/description values.
+- Experience values outside the allowed integer range.
+- Parsing plain JSON and JSON inside Markdown code fences.
+- Malformed JSON.
+- Empty or oversized question arrays.
+- Missing question or answer text.
+
+The test suite does not call Clerk, Gemini, Neon, or a deployed application. A passing test run proves only the tested helper behavior.
+
+## Manual integration checklist
+
+| Area | Test | Expected result |
+|---|---|---|
+| Public route | Open the root URL | Application responds; current page is a starter placeholder |
+| Sign-up | Create a development Clerk user | Clerk completes registration |
+| Sign-in | Sign in with a test account | Session is established |
+| Protected route | Open dashboard signed out | Middleware prevents access |
+| Dashboard | Open while signed in | Dashboard and creation form render |
+| Form validation | Submit blank values | Browser/server rejects invalid values |
+| Experience validation | Submit decimal, negative, or over-15 value | Server rejects the request |
+| Authentication | Invoke action without session | Action rejects before provider/database calls |
+| AI generation | Submit valid input with valid Gemini key | Gemini returns a response matching the JSON contract |
+| Invalid AI output | Simulate malformed response | Response is rejected and not persisted |
+| Persistence | Submit a valid response with working DB | One interview record is stored |
+| Database failure | Simulate unavailable DB | Client receives generic failure, not connection details |
+| Privacy | Inspect browser assets and logs | No private API key or database URL is exposed |
+
+## Build and static checks
+
+The intended local release checks are:
+
+```bash
+npm ci
+npm test
 npm run build
 ```
 
-Run database checks only against a dedicated development database.
+The current GitHub Actions workflow runs dependency installation and unit tests. It does not currently run a production build or live integration tests.
 
-## Manual regression matrix
+## Test data and credentials
 
-| Area | Scenario | Expected result |
-|---|---|---|
-| Public page | Open home page | Page renders without errors |
-| Authentication | Sign up with test account | Clerk completes sign-up |
-| Authentication | Sign in and sign out | Session changes correctly |
-| Route protection | Open dashboard while signed out | Clerk blocks or redirects access |
-| Interview creation | Submit valid role, description, and experience | Generation starts with visible loading state |
-| Input validation | Submit empty or invalid values | Request is rejected with useful feedback |
-| AI integration | Use valid provider credentials | Structured interview response is generated |
-| AI failure | Simulate invalid key/provider failure | Safe error is shown and retry is possible |
-| Database | Save generated interview | Record is stored in development database |
-| Database failure | Simulate unavailable database | Failure is handled without exposing connection details |
-| Ownership | Attempt to access another user's record | Access is denied |
-| Responsive UI | Test narrow and wide viewports | Layout remains usable |
-| Privacy | Inspect browser bundle and logs | Secret keys and private interview data are absent |
+- Use synthetic role descriptions and sample answers.
+- Use a dedicated development database.
+- Use Clerk development credentials.
+- Store provider keys in local environment files or CI secrets.
+- Never commit test credentials or real candidate interview data.
 
-## Test priorities
+## Future test coverage
 
-1. Extract question parsing and validation into pure server-side functions.
-2. Test malformed AI output and missing fields.
-3. Test authentication and ownership checks.
-4. Test database failure handling.
-5. Add component tests after application logic is independently testable.
-
-Use synthetic data only. Never place real candidate answers, tokens, API keys, or production records in fixtures or CI logs.
+Before calling the application production-ready, add tests for server-action authorization, provider failures, persistence behavior, ownership filtering on future reads, and the end-to-end authenticated user flow.
