@@ -11,7 +11,7 @@
     "test": "node --test"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.11.3",
+    "@clerk/nextjs": "^7.9.26",
     "@google/generative-ai": "^0.21.0",
     "@neondatabase/serverless": "^0.7.2",
     "@radix-ui/react-dialog": "^1.1.6",
