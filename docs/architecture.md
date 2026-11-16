@@ -1,13 +1,15 @@
 # Architecture
 
-The application uses the Next.js App Router for UI and server routes. Clerk provides authentication, Gemini provides AI generation, and Neon/Postgres stores application data through Drizzle ORM.
+The project uses the Next.js App Router.
 
-```text
-Browser
-  -> Next.js pages/components
-  -> authenticated server actions or API routes
-      -> Gemini
-      -> Drizzle ORM -> Neon/Postgres
-```
+- `app/`: routes, layouts, pages, and server actions.
+- `app/dashboard/_components/`: interactive dashboard components.
+- `components/ui/`: reusable Radix-based UI primitives.
+- `lib/db.js`: server-only Neon and Drizzle database connection.
+- `lib/interview-validation.js`: pure input and AI-response validation.
+- `utils/GeminiAiModel.js`: server-only Gemini model configuration.
+- `utils/schema.js`: Drizzle PostgreSQL table definitions.
+- `test/`: Node.js unit tests.
+- `.github/workflows/`: CI automation.
 
-Keep secrets and external calls server-side. Validate authorization and request data at every persistence or AI boundary.
+Client components own presentation and browser interaction. Server actions own authorization, validation, external provider calls, and database writes. Do not import database clients or private AI configuration into client components.
