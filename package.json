@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "db:push": "npx drizzle-kit push:pg",
-    "db:studio": "npx drizzle-kit studio "
+    "db:studio": "npx drizzle-kit studio ",
+    "test": "node --test"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.11.3",
@@ -28,7 +29,8 @@
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
-    "uuid": "^11.0.5"
+    "uuid": "^11.0.5",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
