@@ -35,5 +35,12 @@
     "drizzle-kit": "0.19.13",
     "postcss": "^8.5.2",
     "tailwindcss": "^3.4.17"
+  },
+  "description": "AI-assisted interview practice app built with Next.js, Clerk, Gemini, Neon Postgres, and Drizzle ORM.",
+  "author": "Brajesh Kumar",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.18.0",
+    "npm": ">=9.0.0"
   }
 }

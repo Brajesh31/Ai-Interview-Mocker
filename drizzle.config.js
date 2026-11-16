@@ -1,12 +1,9 @@
-import * as dotenv from "dotenv";
-dotenv.config({ path: "./.env.local" });
+import "dotenv/config";
 
-/** @type {import('drizzle-kit').Config} */
+/** @type {import("drizzle-kit").Config} */
 export default {
-  schema: './utils/schema.js',
-  out: './drizzle',
-  driver: 'pg',
-  dbCredentials: {
-    connectionString: process.env.NEXT_PUBLIC_DATABASE_URL || 'postgresql://neondb_owner:npg_wYpTuDeq6B7E@ep-noisy-bar-a5owkyyf-pooler.us-east-2.aws.neon.tech/ai-interview-mocker?sslmode=require'
-  }
+  schema: "./utils/schema.js",
+  out: "./drizzle",
+  dialect: "postgresql",
+  dbCredentials: { url: process.env.DATABASE_URL },
 };

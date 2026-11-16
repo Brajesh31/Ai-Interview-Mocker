@@ -1,19 +1,21 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+import "server-only";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+if (!apiKey) {
+  throw new Error("GOOGLE_GENERATIVE_AI_API_KEY is not configured.");
+}
+
 const genAI = new GoogleGenerativeAI(apiKey);
+export const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-const model = genAI.getGenerativeModel({
-  model: "gemini-pro",
-});
-
-const generationConfig = {
-  temperature: 1,
+export const generationConfig = {
+  temperature: 0.7,
   topP: 0.95,
   topK: 40,
   maxOutputTokens: 8192,
 };
 
-export const chatSession = model.startChat({
-  generationConfig,
-});
+export function createInterviewChat() {
+  return model.startChat({ generationConfig });
+}
