@@ -352,7 +352,12 @@ Production Clerk URLs, provider credentials, database access, backups, and schem
 | [Performance](docs/performance.md) | Performance constraints and measurement plan |
 | [Troubleshooting](docs/troubleshooting.md) | Common setup and runtime problems |
 | [FAQ](docs/faq.md) | Frequently asked questions |
-| [Known limitations](docs/known-limitations.md) | Current product and engineering gaps |\n| [Threat model](docs/threat-model.md) | Application assets, threats, and residual risks |\n| [Data retention](docs/data-retention.md) | Stored data and deletion gaps |\n| [Backup and recovery](docs/backup-and-recovery.md) | Database recovery guidance |\n| [Incident response](docs/incident-response.md) | Incident handling process |\n| [Architecture decisions](docs/adr/README.md) | Architecture decision records |
+| [Known limitations](docs/known-limitations.md) | Current product and engineering gaps |
+| [Threat model](docs/threat-model.md) | Application assets, threats, and residual risks |
+| [Data retention](docs/data-retention.md) | Stored data and deletion gaps |
+| [Backup and recovery](docs/backup-and-recovery.md) | Database recovery guidance |
+| [Incident response](docs/incident-response.md) | Incident handling process |
+| [Architecture decisions](docs/adr/README.md) | Architecture decision records |
 | [Maintainers](docs/maintainers.md) | Repository maintenance |
 | [Release checklist](docs/release-checklist.md) | Release verification |
 
