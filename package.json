@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "db:push": "npx drizzle-kit push:pg",
     "db:studio": "npx drizzle-kit studio ",
     "test": "node --test"
